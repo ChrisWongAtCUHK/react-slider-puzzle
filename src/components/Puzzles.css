@@ -1,0 +1,14 @@
+.row {
+  display: flex;
+  max-width: 90vw;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.row img {
+  width: 100px;
+}
+
+.row .play-button {
+  padding-top: 25px;
+}
