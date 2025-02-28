@@ -12,7 +12,7 @@ function Puzzles(props) {
       <h1>Select a Puzzle</h1>
       {puzzles.map((p) => {
         return (
-          <div className='row' key={p.id}>
+          <div className='puzzleRow' key={p.id}>
             <div>
               <img src={`assets/${p.image}`} alt={p.title} />
             </div>

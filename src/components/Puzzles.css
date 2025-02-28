@@ -1,14 +1,14 @@
-.row {
+.puzzleRow {
   display: flex;
   max-width: 90vw;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
-.row img {
+.puzzleRow img {
   width: 100px;
 }
 
-.row .play-button {
+.puzzleRow .play-button {
   padding-top: 25px;
 }

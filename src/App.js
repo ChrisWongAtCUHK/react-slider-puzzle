@@ -3,7 +3,7 @@ import Puzzles from './components/Puzzles'
 import SliderPuzzle from './components/SliderPuzzle'
 
 function App() {
-  const [selectedPuzzleId, setSelectedPuzzleId] = useState('')
+  const [selectedPuzzleId, setSelectedPuzzleId] = useState('cut-pink')
   function puzzleChanged(id){
     setSelectedPuzzleId(() => id)
   }
