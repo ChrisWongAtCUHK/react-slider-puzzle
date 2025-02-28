@@ -21,8 +21,7 @@ function SliderPuzzle({ puzzleId = 'cut-pink' }) {
   const [indexesToSwap, setIndexesToSwap] = useState([])
 
   const [startDateTime, setStartDateTime] = useState(new Date())
-  const [currentDateTime, setCurrentDateTime] = useState(new Date())
-  const [elapsedDiff, setElapsedDiff] = useState(moment(new Date))
+  const [, setCurrentDateTime] = useState(new Date())
   const [elapsedTime, setElapsedTime] = useState('')
   const [isWinning, setIsWinning] = useState(false)
 
@@ -108,7 +107,7 @@ function SliderPuzzle({ puzzleId = 'cut-pink' }) {
         {shuffledPuzzleArray.map((s, index) => {
           return (
             <div className='column' key={index} onClick={() => swap(index)}>
-              <img src={`assets/${puzzleId}/${s}`} />
+              <img src={`assets/${puzzleId}/${s}`} alt={puzzleId} />
             </div>
           )
         })}
