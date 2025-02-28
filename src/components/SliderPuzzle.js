@@ -36,8 +36,14 @@ function SliderPuzzle({ puzzleId = 'cut-pink' }) {
   }
 
   function resetTime() {
-    setStartDateTime(new Date())
-    setCurrentDateTime(new Date())
+    const current = new Date()
+    const currentDT = moment(current);
+    const startDT = moment(current);
+    const diff = currentDT.diff(startDT);
+    const elapsedT = moment.utc(diff).format("HH:mm:ss")
+    setElapsedTime(() => elapsedT)
+    setStartDateTime(current)
+    setCurrentDateTime(current)
   }
 
   function start() {
@@ -95,7 +101,9 @@ function SliderPuzzle({ puzzleId = 'cut-pink' }) {
     <div>
       <h1>Swap the Images to Win</h1>
       <button onClick={start} id="start-button">Start Game</button>
+      <button onClick={stop} id="quit-button">Quit</button>
       <p>Elapsed Time: { elapsedTime }</p>
+      { isWinning ? <p>You win</p> : null}
       <div className='row'>
         {shuffledPuzzleArray.map((s, index) => {
           return (
