@@ -24,27 +24,15 @@ function SliderPuzzle({ puzzleId = 'cut-pink' }) {
   const [currentDateTime, setCurrentDateTime] = useState(new Date())
   const [elapsedDiff, setElapsedDiff] = useState(moment(new Date))
   const [elapsedTime, setElapsedTime] = useState('')
+  const [isWinning, setIsWinning] = useState(false)
 
-  function swap(index) {
-    // if (!timer) {
-    //   return;
-    // }
-    let its = []
-    let spa = []
-    if (indexesToSwap.length < 2) {
-      its = [...indexesToSwap, index]
+  function getIsWinning(spa) {
+    for (let i = 0; i < correctPuzzleArray.length; i++) {
+      if (correctPuzzleArray[i] !== spa[i]) {
+        return false;
+      }
     }
-    if (its.length === 2) {
-      const [index1, index2] = its
-      spa = [...shuffledPuzzleArray]
-      const tmp = spa[index1]
-      spa[index1] = spa[index2]
-      spa[index2] = tmp
-      setShuffledPuzzleArray(() => [...spa])
-      setIndexesToSwap(() => [])
-    } else {
-      setIndexesToSwap(() => [...its])
-    }
+    return true
   }
 
   function resetTime() {
@@ -58,18 +46,49 @@ function SliderPuzzle({ puzzleId = 'cut-pink' }) {
       () => Math.random() - 0.5
     ))
     setIndexesToSwap([])
-    const timer = setInterval(() => {
+    const t = setInterval(() => {
       const currentDT = moment(new Date());
       const startDT = moment(startDateTime);
       const diff = currentDT.diff(startDT);
       const elapsedT = moment.utc(diff).format("HH:mm:ss")
       setElapsedTime(() => elapsedT)
-      // if (this.isWinning) {
-      //   this.recordSpeedRecords();
-      //   this.stop();
-      // }
+
     }, 1000);
-    setTimer(() => timer)
+    setTimer(() => t)
+  }
+  
+  function stop() {
+    resetTime();
+    const t = clearInterval(timer);
+    setTimer(() => t)
+  }
+
+  function swap(index) {
+    if (!timer) {
+      return;
+    }
+    let its = []
+    let spa = []
+    if (indexesToSwap.length < 2) {
+      its = [...indexesToSwap, index]
+    }
+    if (its.length === 2) {
+      const [index1, index2] = its
+      spa = [...shuffledPuzzleArray]
+      const tmp = spa[index1]
+      spa[index1] = spa[index2]
+      spa[index2] = tmp
+      let iw = getIsWinning(spa)
+
+      setShuffledPuzzleArray(() => [...spa])
+      setIndexesToSwap(() => [])
+      setIsWinning(() => iw)
+      if(iw) {
+        stop()
+      }
+    } else {
+      setIndexesToSwap(() => [...its])
+    }
   }
 
   return (
